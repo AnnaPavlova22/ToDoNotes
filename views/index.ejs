@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My TO-DO list</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+  <link rel="icon" href="favicon.png">
+
+  <!-- Links to font family -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Concert+One&display=swap" rel="stylesheet">
+
+  <!-- CSS file links -->
+  <link rel="stylesheet" href="layout.css">
+</head>
+<body>
+
+    <div class="image">
+        <img src="images/girl.webp" alt="girl-image">
+    </div>
+
+
+    <div class="current-date">
+        <h1><%= `${weekday}, ${date}` %></h1>
+    </div>
+
+    <div class="submit-form">
+        <form class="blog-form" action="/" method="post">
+            <input type="text" id="to-do-item" name="doItem" placeholder="New item" autocomplete="off">
+            <button class="submit-button" type="submit">+</button><br>
+        </form>
+    </div>
+
+
+    <div class="list-item">
+    <% if (items && items.length > 0) { %>
+        <% items.forEach((item, index) => { %>
+            <ul>
+                <li>
+                    <form action="/toggle" method="post" style="display: inline;">
+                        <input type="hidden" name="index" value="<%= index %>">
+                        <input type="checkbox" id="checkbox<%= index %>" name="checkItem" onchange="this.form.submit()" <%= item.crossedOut ? 'checked' : '' %>>
+                        <label id="label<%= index %>" class="<%= item.crossedOut ? 'crossed-out' : '' %>"><%= item.text %></label><br>
+                    </form>
+                </li>
+            </ul>
+            
+        <% }) %>
+    <% } %>
+    </div>
+
+    
+
+</body>
+</html>
